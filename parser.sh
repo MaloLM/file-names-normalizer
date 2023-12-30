@@ -1,5 +1,57 @@
 #!/bin/bash
 
+# Function definition: parser()
+# PARSING RULES
+parser() {
+ local name="$1"
+ # Delete prefix spaces
+ name=${name# }
+
+ # Delete suffix spaces
+ name=${name% }
+
+ # Convert to lowercase
+ name=$(echo "$name" | tr "[A-Z]" "[a-z]")
+
+ # Replace spaces with underscores
+ name=$(echo "$name" | sed -r 's/[ ]+/_/g')
+
+ # Remove special characters (like #, $, %, &, etc.)
+ # name=$(echo "$name" | sed 's/[^a-zA-Z0-9_.-]//g')
+
+ # Remove multiple underscores (if any)
+ # name=$(echo "$name" | sed 's/__\+/_/g')
+
+ # Remove leading and trailing underscores (if any)
+ # name=$(echo "$name" | sed 's/^_+|_+$//g')
+
+ # Trim consecutive dashes
+ # name=$(echo "$name" | sed 's/-\+/-/g')
+
+ # Remove leading and trailing dashes (if any)
+ # name=$(echo "$name" | sed 's/^-+|-+$//g')
+
+ # Remove all numbers from the file name
+ # name=$(echo "$name" | sed 's/[0-9]//g')
+
+ # Add current date as a prefix or suffix to the file name
+ # Prefix
+ name="$(date +%Y%m%d)_$name"
+ # Or, as a suffix
+ # name="$name_$(date +%Y%m%d)"
+
+ # Remove all dashes and underscores
+ # name=$(echo "$name" | tr -d '_-')
+
+ # Ensure file extension is lowercase
+ base=${name%.*}
+ ext=${name##*.}
+ name="$base.${ext,,}"
+ 
+ echo "$name"
+}
+
+
 # Define the path of the temporary file to store file paths
 path_file="/tmp/paths.txt"
 
@@ -20,25 +72,6 @@ case "$(uname -s)" in
      find . | tac > $path_file
      ;;
 esac
-
-# Function definition: parser()
-# Processes a string by removing spaces, converting to lowercase, and replacing spaces with underscores
-parser() {
- local name="$1"
- # Delete prefix spaces
- name=${name# }
-
- # Delete suffix spaces
- name=${name% }
-
- # Convert to lowercase
- name=$(echo "$name" | tr "[A-Z]" "[a-z]")
-
- # Replace spaces with underscores
- name=$(echo "$name" | sed -r 's/[ ]+/_/g')
- 
- echo "$name"
-}
 
 # Main loop to process each path in the paths file
 while IFS="" read -r p || [ -n "$p" ]
