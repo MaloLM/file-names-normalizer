@@ -72,6 +72,7 @@ For support, please contact the project contributors.
 <a href = "https://github.com/MaloLM/file-names-normalizer/contributors">
    <img src = "https://contrib.rocks/image?repo=MaloLM/file-names-normalizer"/>
 </a>
+Adding HoloZor as contributor
 
 ## Disclaimer
 
