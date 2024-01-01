@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project contains a Bash script designed for renaming files in a directory in a standardized way, that you can configure.
+This project contains a Bash script designed for renaming files and directory names in a given directory in a standardized way, that you can configure.
 
-It works across different operating systems (macOS and Linux) and modifies file names by performing enabled rules inside the script.
+It works across different operating systems (macOS and Linux) and modifies file and directory names by performing enabled rules inside the script.
 
 ## Demonstration
 
@@ -69,10 +69,12 @@ For support, please contact the project contributors.
 
 ## Contributors
 
-<a href = "https://github.com/MaloLM/file-names-normalizer/contributors">
+- [HoloZor](https://github.com/HoloZoR)
+- [Malo Le Mestre](https://github.com/MaloLM)
+
+<!-- <a href = "https://github.com/MaloLM/file-names-normalizer/contributors">
    <img src = "https://contrib.rocks/image?repo=MaloLM/file-names-normalizer"/>
-</a>
-Adding HoloZor as contributor
+</a> -->
 
 ## Disclaimer
 
