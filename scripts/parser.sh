@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# List of directory names to ignore
+directories_to_ignore=(".git" "sub-to-ignore")
+
+# List of file extensions to ignore
+extensions_to_ignore=("DS_Store")
+
 # Function definition: parser()
 # PARSING RULES
 parser() {
@@ -96,23 +102,18 @@ case "$(uname -s)" in
 esac
 
 # Main loop to process each path in the paths file
-# Liste des répertoires à ignorer
-directories_to_ignore=(".git" "sub-to-ignore")
-
-# Liste des extensions de fichiers à ignorer
-extensions_to_ignore=("DS_Store")
 
 while IFS="" read -r p || [ -n "$p" ]
 do
   
-  # Vérifie si le chemin est un répertoire
+  # Check if the path is a directory
   if [ -d "$p" ]; then
-    # Récupère le nom du répertoire sans le chemin
+    # Retrieve the directory name without the path
     dir_name=$(basename "$p")
     
-    # Vérifie si le répertoire n'est pas dans la liste à ignorer
+    # Check if the directory is not in the ignore list
     if [[ ! " ${directories_to_ignore[@]} " =~ " ${dir_name} " ]]; then
-      # Parse et renomme le répertoire
+      # Parse and rename the directory
       new_dir_name=$(parser "$dir_name")
       if [[ "$dir_name" != "$new_dir_name" ]]; then
         # Construct new directory path
@@ -131,30 +132,30 @@ do
     fi
   elif [ -f "$p" ]; then
     
-    # Vérifie si le fichier n'est pas dans un répertoire à ignorer
+    # Check if the file is not in an ignored directory
     ignore_file=false
-    # Divise le chemin en répertoires
+    # Split the path into directories
     IFS='/' read -ra ADDR <<< "$p"
     for dir_part in "${ADDR[@]}"; do
-      # Vérifie chaque partie du chemin
+      # Check each part of the path
       if [[ " ${directories_to_ignore[@]} " =~ " ${dir_part} " ]]; then
         ignore_file=true
         break
       fi
     done
     
-    # Si le fichier n'est pas à ignorer
+    # If the file is not to be ignored
     if [[ "$ignore_file" == false ]]; then
 
       extension="${p##*.}"
       file_name=$(basename "$p")
 
-      # Vérifie si le fichier a une extension et si elle n'est pas dans la liste à ignorer
+      # Check if the file has an extension and if it's not in the ignore list
       if [[ "$file_name" == "$extension" || ! " ${extensions_to_ignore[@]} " =~ " ${extension} " ]]; then
-        # Récupère le nom de base du fichier
+        # Retrieve the base name of the file
         base_name=$(basename "$p" ".$extension")
         
-        # Parse et renomme le fichier
+        # Parse and rename the file name (without its extension)  
         new_base_name=$(parser "$base_name")
         if [[ "$base_name" != "$new_base_name" ]]; then
         # Construct new file path
@@ -165,7 +166,6 @@ do
           new_base_name="${new_base_name} other"
           new_base_name=$(parser "$new_base_name")
           new_file_path="$(dirname "$p")/$new_base_name.$extension"
-
         fi
           # Rename the file
           mv "$p" "$new_file_path"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the root directory name
-root_dir="test-dir"
+root_dir="test_dir"
 
 # Function to create files with inconsistent naming
 create_files() {
@@ -43,6 +43,6 @@ sleep $duration
 
 # Execute parser.sh
 
-./parser.sh .
+./parser.sh ./$root_dir
 
 echo "Script execution completed."
