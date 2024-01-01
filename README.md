@@ -100,7 +100,7 @@ For support, please contact the project contributors.
 
 ## Contributors
 
-- [HoloZor](https://github.com/HoloZoR)
+- [Baptiste Ledoyen](https://github.com/HoloZoR)
 - [Malo Le Mestre](https://github.com/MaloLM)
 
 <!-- <a href = "https://github.com/MaloLM/file-names-normalizer/contributors">
